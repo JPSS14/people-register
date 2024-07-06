@@ -12,7 +12,7 @@ describe("Header component", () => {
     // need use expect.stringContaining() because the Image Next optimization change the src
     expect(logo).toHaveAttribute(
       "src",
-      expect.stringContaining("people-register-logo.png")
+      expect.stringContaining("people-register-logo.svg")
     );
   });
 });
