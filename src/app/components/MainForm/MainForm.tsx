@@ -15,6 +15,7 @@ import { MdModeEdit, MdDelete } from "react-icons/md";
 import { FaSave } from "react-icons/fa";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface MainFormProps {
   item?: ResponsePeopleMapped;
@@ -139,9 +140,11 @@ export const MainForm = ({ item }: MainFormProps) => {
               <Button fullWidth type="submit">
                 Cadastrar
               </Button>
-              <Button fullWidth color="dark">
-                Lista de Pessoas
-              </Button>
+              <Link href="/people">
+                <Button fullWidth color="dark">
+                  Lista de Pessoas
+                </Button>
+              </Link>
             </div>
           )}
         </form>
