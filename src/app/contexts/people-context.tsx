@@ -1,5 +1,7 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { ResponsePeopleMapped } from "../service/type";
+import { getLocalStorage, setLocalStorage } from "../utils/utils";
+import { getPeople } from "../service/people.service";
 
 type PeopleContext = {
   peopleList: ResponsePeopleMapped[];
@@ -16,6 +18,21 @@ export const PeopleContextProvider = ({
   children,
 }: PeopleContextProviderProps) => {
   const [peopleList, setPeopleList] = useState<ResponsePeopleMapped[]>([]);
+
+  useEffect(() => {
+    const list = getLocalStorage("peopleList");
+
+    if (list) {
+      setPeopleList(list);
+    } else {
+      getPeople()
+        .then((item) => {
+          setPeopleList(item);
+          setLocalStorage("peopleList", item);
+        })
+        .catch();
+    }
+  }, [setPeopleList]);
 
   return (
     <PeopleContext.Provider
