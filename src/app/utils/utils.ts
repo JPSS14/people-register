@@ -54,6 +54,10 @@ export const isValidEmail = (email: string) => {
   return emailRegex.test(email);
 };
 
+export const unmask = (value: string) => {
+  return value.replace(/[^\d]/g, "");
+};
+
 export const getLocalStorage = (key: string) => {
   const data = window.localStorage.getItem(key);
 
