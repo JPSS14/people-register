@@ -6,6 +6,7 @@ import { getPeople } from "../service/people.service";
 type PeopleContext = {
   peopleList: ResponsePeopleMapped[];
   setPeopleList: (value: ResponsePeopleMapped[]) => void;
+  handleResetList: () => void;
 };
 
 export const PeopleContext = createContext({} as PeopleContext);
@@ -34,11 +35,21 @@ export const PeopleContextProvider = ({
     }
   }, [setPeopleList]);
 
+  const handleResetList = () => {
+    getPeople()
+      .then((item) => {
+        setPeopleList(item);
+        setLocalStorage("peopleList", item);
+      })
+      .catch();
+  };
+
   return (
     <PeopleContext.Provider
       value={{
         peopleList,
         setPeopleList,
+        handleResetList,
       }}
     >
       {children}
