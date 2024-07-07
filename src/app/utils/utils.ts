@@ -43,8 +43,12 @@ export const maskCPF = (cpf: string) => {
 
 export const maskPhoneNumber = (phoneNumber: string) => {
   phoneNumber = phoneNumber.replace(/\D/g, "");
-  phoneNumber = phoneNumber.replace(/(\d{2})(\d)/, "($1) $2");
-  phoneNumber = phoneNumber.replace(/(\d{5})(\d)/, "$1-$2");
+  if (phoneNumber.length === 11) {
+    return phoneNumber.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+  } else if (phoneNumber.length === 10) {
+    return phoneNumber.replace(/(\d{2})(\d{4})(\d{4})/, "($1) $2-$3");
+  }
+
   return phoneNumber;
 };
 
