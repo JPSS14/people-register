@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePeopleContext } from "@/app/contexts/people-context";
 import ReactLoading from "react-loading";
+import { DeleteModal } from "../DeleteModal";
 
 interface MainFormProps {
   item?: ResponsePeopleMapped;
@@ -36,6 +37,7 @@ export const MainForm = ({ item }: MainFormProps) => {
   } = useForm<People>();
   const [edit, setEdit] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   const onSubmit: SubmitHandler<People> = (data) => {
     setIsLoading(true);
@@ -70,6 +72,7 @@ export const MainForm = ({ item }: MainFormProps) => {
     );
     setPeopleList(removedPersonList);
     setLocalStorage("peopleList", removedPersonList);
+    setDeleteModal(false);
   };
 
   const handleCPFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -157,7 +160,7 @@ export const MainForm = ({ item }: MainFormProps) => {
             <div className={style.update__footer}>
               <MdDelete
                 className={clsx(style.icons, style.delete__icon)}
-                onClick={() => handleRemovePerson(item)}
+                onClick={() => setDeleteModal(true)}
               />
               <div className={style.ctaIcon__container}>
                 {isLoading && (
@@ -206,6 +209,13 @@ export const MainForm = ({ item }: MainFormProps) => {
           )}
         </form>
       </div>
+      {item && (
+        <DeleteModal
+          isOpen={deleteModal}
+          onClick={() => handleRemovePerson(item)}
+          onCancel={() => setDeleteModal(false)}
+        />
+      )}
     </div>
   );
 };
