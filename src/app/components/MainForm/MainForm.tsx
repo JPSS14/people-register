@@ -46,6 +46,14 @@ export const MainForm = ({ item }: MainFormProps) => {
     setLocalStorage("peopleList", [...peopleList, unmaskData]);
   };
 
+  const handleRemovePerson = (item: ResponsePeopleMapped) => {
+    const removedPersonList = peopleList.filter(
+      (people) => unmask(item.cpf) !== people.cpf
+    );
+    setPeopleList(removedPersonList);
+    setLocalStorage("peopleList", removedPersonList);
+  };
+
   const handleCPFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     const formattedCPF = maskCPF(value);
@@ -129,7 +137,10 @@ export const MainForm = ({ item }: MainFormProps) => {
           />
           {item ? (
             <div className={style.update__footer}>
-              <MdDelete className={clsx(style.icons, style.delete__icon)} />
+              <MdDelete
+                className={clsx(style.icons, style.delete__icon)}
+                onClick={() => handleRemovePerson(item)}
+              />
               <div>
                 <FaSave
                   className={clsx(
