@@ -1,12 +1,11 @@
 import axios from "axios";
 import { ResponsePeople, ResponsePeopleMapped } from "./type";
-import { responsePeopleMapper } from "./people.mapper";
 
-export const getPeople = (): Promise<ResponsePeopleMapped[]> => {
+export const getPeople = (): Promise<ResponsePeople[]> => {
   return axios
     .get<ResponsePeople[]>(
       `https://private-9d65b3-tinnova.apiary-mock.com/users`
     )
-    .then((result) => responsePeopleMapper(result.data))
+    .then((result) => result.data)
     .catch();
 };
