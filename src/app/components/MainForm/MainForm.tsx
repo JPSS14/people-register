@@ -9,6 +9,8 @@ import {
   isValidEmail,
   maskCPF,
   maskPhoneNumber,
+  setLocalStorage,
+  unmask,
 } from "@/app/utils/utils";
 import { ResponsePeopleMapped } from "@/app/service/type";
 import { MdModeEdit, MdDelete } from "react-icons/md";
@@ -16,12 +18,14 @@ import { FaSave } from "react-icons/fa";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePeopleContext } from "@/app/contexts/people-context";
 
 interface MainFormProps {
   item?: ResponsePeopleMapped;
 }
 
 export const MainForm = ({ item }: MainFormProps) => {
+  const { setPeopleList, peopleList } = usePeopleContext();
   const {
     handleSubmit,
     setValue,
@@ -31,7 +35,15 @@ export const MainForm = ({ item }: MainFormProps) => {
   const [edit, setEdit] = useState(true);
 
   const onSubmit: SubmitHandler<People> = (data) => {
-    console.log("data: ", data);
+    const unmaskData = {
+      name: data.name,
+      cpf: unmask(data.cpf),
+      email: data.email,
+      phone: unmask(data.phone),
+    };
+
+    setPeopleList([...peopleList, unmaskData]);
+    setLocalStorage("peopleList", [...peopleList, unmaskData]);
   };
 
   const handleCPFChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,12 +52,10 @@ export const MainForm = ({ item }: MainFormProps) => {
     setValue("cpf", formattedCPF, { shouldValidate: true });
   };
 
-  const handlePhoneNumberChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handlePhoneChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    const formattedPhoneNumber = maskPhoneNumber(value);
-    setValue("phoneNumber", formattedPhoneNumber, { shouldValidate: true });
+    const formattedPhone = maskPhoneNumber(value);
+    setValue("phone", formattedPhone, { shouldValidate: true });
   };
 
   const backgroundClassName = clsx(
@@ -58,7 +68,7 @@ export const MainForm = ({ item }: MainFormProps) => {
       setValue("name", item.name);
       setValue("email", item.email);
       setValue("cpf", item.cpf);
-      setValue("phoneNumber", item.phone);
+      setValue("phone", item.phone);
     }
   }, [item, setValue]);
 
@@ -105,14 +115,14 @@ export const MainForm = ({ item }: MainFormProps) => {
             disabled={item && edit}
           />
           <Input
-            {...register("phoneNumber", {
+            {...register("phone", {
               required: "Este campo é obrigatório",
               validate: (value) =>
                 value.length < 14 ? "Número inválido" : true,
             })}
-            errorMessage={errors.phoneNumber && errors.phoneNumber.message}
+            errorMessage={errors.phone && errors.phone.message}
             label="Telefone"
-            onChange={handlePhoneNumberChange}
+            onChange={handlePhoneChange}
             maxLength={15}
             defaultValue={item ? item.phone : ""}
             disabled={item && edit}
