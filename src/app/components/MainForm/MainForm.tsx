@@ -159,7 +159,16 @@ export const MainForm = ({ item }: MainFormProps) => {
                 className={clsx(style.icons, style.delete__icon)}
                 onClick={() => handleRemovePerson(item)}
               />
-              <div>
+              <div className={style.ctaIcon__container}>
+                {isLoading && (
+                  <ReactLoading
+                    type="spin"
+                    color="#00c8b3"
+                    height={16}
+                    width={16}
+                    className={style.spin}
+                  />
+                )}
                 <FaSave
                   className={clsx(
                     style.icons,
