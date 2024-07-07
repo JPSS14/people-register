@@ -42,8 +42,16 @@ export const MainForm = ({ item }: MainFormProps) => {
       phone: unmask(data.phone),
     };
 
-    setPeopleList([...peopleList, unmaskData]);
-    setLocalStorage("peopleList", [...peopleList, unmaskData]);
+    if (item) {
+      const updatedPeopleList = peopleList.map((people) =>
+        unmask(people.cpf) === unmask(item.cpf) ? unmaskData : people
+      );
+      setPeopleList(updatedPeopleList);
+      setLocalStorage("peopleList", updatedPeopleList);
+    } else {
+      setPeopleList([...peopleList, unmaskData]);
+      setLocalStorage("peopleList", [...peopleList, unmaskData]);
+    }
   };
 
   const handleRemovePerson = (item: ResponsePeopleMapped) => {
