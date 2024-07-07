@@ -24,11 +24,73 @@
       font-size: 1.2rem;
       text-align: center;
       margin-top: 16px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 100%;
     }
 
     .mainForm {
       width: 100%;
       margin: 8px 0;
+
+      .register__footer {
+        button:first-child {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+}
+
+.item__background {
+  height: auto;
+  width: 300px;
+  display: block;
+  margin: 16px;
+
+  .mainForm__container {
+    height: 460px;
+  }
+
+  .update__footer {
+    display: flex;
+    justify-content: space-between;
+
+    .icons {
+      font-size: 1.3rem;
+    }
+
+    .delete__icon {
+      color: theme.$errorColor;
+      opacity: 60%;
+      &:hover {
+        opacity: 100%;
+        cursor: pointer;
+      }
+    }
+
+    .edit__icon {
+      color: theme.$warningColor;
+      opacity: 60%;
+      &:hover {
+        opacity: 100%;
+        cursor: pointer;
+      }
+    }
+
+    .save__icon {
+      color: theme.$mainThemeColor;
+      margin-right: 8px;
+      opacity: 60%;
+      &:hover {
+        opacity: 100%;
+        cursor: pointer;
+      }
+    }
+
+    .disabled {
+      pointer-events: none;
     }
   }
 }
