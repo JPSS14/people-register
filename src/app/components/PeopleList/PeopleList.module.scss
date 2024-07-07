@@ -1,0 +1,36 @@
+@use "src/app/theme";
+
+.peopleList {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 8px auto;
+  max-width: 1364px;
+
+  .peopleList__header {
+    width: 100%;
+    padding: 40px 0px;
+
+    h1 {
+      text-align: center;
+      color: theme.$mainThemeColor;
+    }
+  }
+}
+
+@media (max-width: 1327px) {
+  .peopleList {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 996px) {
+  .peopleList {
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 664px) {
+  .peopleList {
+    max-width: 324px;
+  }
+}
