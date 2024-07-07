@@ -1,4 +1,6 @@
+"use client";
 import { Header } from "./components";
+import { PeopleContextProvider } from "./contexts/people-context";
 
 export default function HomeTemplate({
   children,
@@ -7,8 +9,10 @@ export default function HomeTemplate({
 }) {
   return (
     <div>
-      <Header />
-      <div>{children}</div>
+      <PeopleContextProvider>
+        <Header />
+        <div>{children}</div>
+      </PeopleContextProvider>
     </div>
   );
 }
