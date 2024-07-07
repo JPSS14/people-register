@@ -30,6 +30,10 @@
   width: 100%;
 }
 
+.error {
+  background: theme.$errorColor;
+}
+
 .disabled {
   background: theme.$disabledButtonBackgroundColor;
   color: theme.$disabledButtonTextColor;

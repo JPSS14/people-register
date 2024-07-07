@@ -18,7 +18,9 @@ export const DeleteModal = ({
       <div className={style.deleteModal__container}>
         <div>Tem certeza de que gostaria de excluir essa pessoa?</div>
         <div className={style.button__container}>
-          <Button onClick={onClick}>Excluir</Button>
+          <Button onClick={onClick} color="error">
+            Excluir
+          </Button>
           <Button onClick={onCancel}>Cancelar</Button>
         </div>
       </div>

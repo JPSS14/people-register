@@ -2,7 +2,7 @@ import style from "./button.module.scss";
 import { clsx } from "clsx";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: "primary" | "dark";
+  color?: "primary" | "dark" | "error";
   fullWidth?: boolean;
 }
 
