@@ -1,0 +1,46 @@
+@use "src/app/theme";
+
+.input__container {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  margin: 38px 0;
+
+  .input {
+    border: none;
+    border-bottom: 2px solid theme.$inputTextNoFocusColor;
+    width: 100%;
+    font-size: 1rem;
+    padding: 8px 0;
+    font-weight: 700;
+
+    &.errorInput {
+      border-color: theme.$errorColor;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: theme.$inputTextFocusColor;
+    }
+
+    &:focus + .label,
+    &:not(:placeholder-shown) + .label {
+      top: -50%;
+      font-size: 0.8rem;
+      color: theme.$inputTextFocusColor;
+    }
+  }
+
+  .label {
+    position: absolute;
+    left: 0%;
+    top: 1%;
+    transition: all 0.2s ease-in-out;
+    color: theme.$inputTextNoFocusColor;
+  }
+}
+
+.errorMessage {
+  color: theme.$errorColor;
+  font-size: 0.7rem;
+}
