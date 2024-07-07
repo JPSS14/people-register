@@ -53,3 +53,19 @@ export const isValidEmail = (email: string) => {
     /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi;
   return emailRegex.test(email);
 };
+
+export const getLocalStorage = (key: string) => {
+  const data = window.localStorage.getItem(key);
+
+  return JSON.parse(data!);
+};
+
+export const setLocalStorage = (key: string, value: unknown) => {
+  const data = JSON.stringify(value);
+
+  return window.localStorage.setItem(key, data);
+};
+
+export const removeLocalStore = (key: string) => {
+  return window.localStorage.removeItem(key);
+};
