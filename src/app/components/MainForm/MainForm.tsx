@@ -19,6 +19,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePeopleContext } from "@/app/contexts/people-context";
+import ReactLoading from "react-loading";
 
 interface MainFormProps {
   item?: ResponsePeopleMapped;
@@ -30,11 +31,15 @@ export const MainForm = ({ item }: MainFormProps) => {
     handleSubmit,
     setValue,
     register,
+    reset,
     formState: { errors },
   } = useForm<People>();
   const [edit, setEdit] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onSubmit: SubmitHandler<People> = (data) => {
+    setIsLoading(true);
+
     const unmaskData = {
       name: data.name,
       cpf: unmask(data.cpf),
@@ -51,7 +56,12 @@ export const MainForm = ({ item }: MainFormProps) => {
     } else {
       setPeopleList([...peopleList, unmaskData]);
       setLocalStorage("peopleList", [...peopleList, unmaskData]);
+      reset();
     }
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   };
 
   const handleRemovePerson = (item: ResponsePeopleMapped) => {
@@ -167,7 +177,16 @@ export const MainForm = ({ item }: MainFormProps) => {
           ) : (
             <div className={style.register__footer}>
               <Button fullWidth type="submit">
-                Cadastrar
+                {isLoading ? (
+                  <ReactLoading
+                    type="spin"
+                    color="#fff"
+                    height={16}
+                    width={16}
+                  />
+                ) : (
+                  "Cadastrar"
+                )}
               </Button>
               <Link href="/people">
                 <Button fullWidth color="dark">
