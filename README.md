@@ -1,3 +1,8 @@
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/jpss14/people-register)
+![Last Commit](https://img.shields.io/github/last-commit/jpss14/people-register)
+![GitHubissues](https://img.shields.io/github/issues/jpss14/people-register)
+![GitHub Stars](https://img.shields.io/github/stars/jpss14/people-register)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
